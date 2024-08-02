@@ -28,6 +28,7 @@ if(tutorial) == "y":
     print("*Muffled Boot Kick* Wake up! We have a game to Play!")
 #letters
 #not sure why this has to be here but it pitches a fit about the letters being used in the array/lists/things without it
+#   Apparently it's because I could have just made each element in the array an "a", "b", etc.
 a="a"
 b="b"
 c="c"
@@ -57,23 +58,39 @@ z="z"
 
 #word list
 #0 element will dictate how many "_"s for letters
-word =     [4,w,o,r,d,]
-hangman =  [7,h,a,n,g,m,a,n]
-computer = [8,c,o,m,p,u,t,e,r]
-party =    [5,p,a,r,t,y]
-paper =    [5,p,a,p,e,r]
-silver =   [6,s,i,l,v,e,r]
-food =     [4,f,o,o,d]
+word =     [4,w,o,r,d,0,0,0,0,0,0,0]
+hangman =  [7,h,a,n,g,m,a,n,0,0,0,0]
+computer = [8,c,o,m,p,u,t,e,r,0,0,0]
+party =    [5,p,a,r,t,y,0,0,0,0,0,0]
+paper =    [5,p,a,p,e,r,0,0,0,0,0,0]
+silver =   [6,s,i,l,v,e,r,0,0,0,0,0]
+food =     [4,f,o,o,d,0,0,0,0,0,0,0]
+#if the indexed value returns "0", abort checks and move on
 
-
-
+#print(word[0]) #this works to access the element I was looking for
 #Need the randomizer here to chose something from the arrays
-wordlist = [word, hangman, computer, party, paper, silver, food]
-startingword = word 
+wordlist = [word,hangman,computer,party,paper,silver,food,0,0,0,0]
+ 
 #Random(wordlist)
 #Need to figure out how to call an array and a specific value within it
 
-wrongcount=0
+wrongcount = 0
+
+def wrongcounter():
+    global wrongcount
+    wrongcount = wrongcount + 1
+    return (wrongcount)
+#wrongcounter() 
+#this should increment the wrongcount by 1 and update the global value
+
+bodycount = 0
+
+def bodycounter():
+    global bodycount
+    bodycount = bodycount + 1
+    return (bodycount)
+#bodycounter()
+#this should increment the bodycount by 1 and update the global value
 
 #this is the correct placement for the body currently with end of game stuff hashed out
 head = ("   ")
@@ -91,6 +108,59 @@ trapdoor = ("____")
 #leg2 = (" \ ")
 #trapdoor = ("\   ")
 
+def coroner(): #takes bodycount and adjusts the body part variables appropriately
+    global bodycount
+    global head
+    global torso
+    global arm
+    global arm2
+    global leg
+    global leg2
+    global trapdoor
+    if(bodycount) == 1:
+        head = ("   O")
+        return (head)
+    if(bodycount) == 2:
+        torso = ("|")
+        return(torso)
+    if(bodycount) == 3:
+        arm = ("  /")
+        return(arm)
+    if(bodycount) == 4:
+        arm2 = ("\ ")
+        return(arm2)
+    if(bodycount) == 5:
+        leg = (" /")
+        return(leg)
+    if(bodycount) == 6:
+        leg2 = (" \ ")
+        return(leg2)
+    if(bodycount) == 7:
+        trapdoor = ("\   ")
+        return(trapdoor)
+
+def cremator(): #resets the body
+    global head
+    global torso
+    global arm
+    global arm2
+    global leg
+    global leg2
+    global trapdoor
+    head = ("   ")
+    arm = ("   ")
+    torso = (" ")
+    arm2 = (" ")
+    leg = ("  ")
+    leg2 = ("  ")
+    trapdoor = ("____")
+    return(head)
+    return(torso)
+    return(arm)
+    return(arm2)
+    return(leg)
+    return(leg2)
+    return(trapdoor)
 
 position1 = ("_")
 position2 = ("_")
@@ -104,7 +174,18 @@ position9 = ("_")
 
 #build position updaters here
 #one to flip "_" to " " based on the 0 element of chosen word
-#openinginterface(startingword, 0element):
+def num_of_letters():
+    if(element0) == 1: #this didn't hate me
+        position2 = (" ")
+        position3 = (" ")
+        position4 = (" ")
+        position5 = (" ")
+        position6 = (" ")
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+    
+#openinginterface = (startingword, 0):
 if(): #openinginterface) == 1:
     position2 = (" ")
     position3 = (" ")
@@ -156,85 +237,99 @@ if():#openinginterface) == 9:
 #one to flip "_" to the corectly guessed letter based on the specific element for a specific position
 
 #Master print for interface
-#interface = 
-print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+#This has solved the interface replication
+def interface():
+    print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+
+interface()
+#tester sequence \|/
+bodycounter(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),interface()
+
+
+
+
+
+
+
+    
+#print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
 
 #test input
-wrong = input()
+wrong = 20 #input()
+#need a solve input
 
 #All body count advancement is here
 #They all end with a wrongcounter going up. Might need to start them with the wrongcounter, I'm not sure. I just feel like this is going to be a source of frustration later
-if(wrong) == "wrong":
+#I need to rebuild this so that if returns a counter from the wrong guess. And then build the counter to update the head variable in global scope. basically split this into 2 different funtions that just returns a single thing each
+if(wrong) == "wr":
     wrongcount = wrongcount + 1
     if(wrongcount) == 1:
         head = ("   O")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 2:
         torso = ("|")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 3:
         arm = ("  /")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 4:
         arm2 = ("\ ")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 5:
         leg = (" /")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 6:
         leg2 = (" \ ")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrong = input()
         print(" ")
-        if(wrong) == "wrong":
+        if(wrong) == "wr":
             wrongcount = wrongcount + 1
     if(wrongcount) == 7:
         trapdoor = ("\   ")
-        #print(interface) Ideally I can just continually keep updating the interface values with all the dominos going from there.
-        print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+        interface()
         wrongcount = wrongcount + 1
-        print("*******Game over*****")
+        print("*******Game over*******")
             
-        #I want to return the head value out from hear to change the global 'head' variable
-        #return (head,wrongcount) #just saying "SyntaxError: 'return' outside function"
-        #Maybe I can just copy all the previous code into it'self so that all the updated variables were within the scope cause its after the decision (JK, that would be a massive memory hog after a few rounds)
+        
 print("Try again?")
 print("y/n")
 tryagain = input ()
+if(tryagain) == "y":
+    print(" I'll figure out how to do that later")
+    cremator()
+    #random(wordlist)
+interface()
+#tryagain needs to reset wrongcounter to 0 and revert the bodycounter to 0. Then pick a new word from the list, reset the position counter to the value in the 0element, print interface, and then ask for the first guess.
 
 
 
-def display_info(first_name, last_name):
-    print('First Name:', first_name)
-    print('Last Name:', last_name)
+
+#def display_info(first_name, last_name):
+    #print('First Name:', first_name)
+    #print('Last Name:', last_name)
     
-display_info(last_name = 'Cartman', first_name = 'Eric')
+#display_info(last_name = 'Cartman', first_name = 'Eric')
 # so this worked. Let's see if it becomes global or just back to when it was defined. On the levels of scope
 
 

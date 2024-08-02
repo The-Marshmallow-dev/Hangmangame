@@ -167,7 +167,8 @@ display_info(last_name = 'Cartman', first_name = 'Eric')
         
 
 #Pass a whole page for animations if this compiler would keep the coursor in veiw the whole time
-#print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*") #should be 26 lines
+#print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*") 
+#should be 26 lines
 
 
 

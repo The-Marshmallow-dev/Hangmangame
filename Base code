@@ -1,34 +1,7 @@
 import random
-#hangman game
-print("Let's play Hangman!")
-print("y/n")
-start = input()
-while(start) == "n":
-    print("Okay, but come back when you want a challenge!")
-    start = input()
-if(start) == "y":
-    print("Do you know how to play?")
-    print("y/n")
-tutorial = input()
-while(tutorial) == "n":
-    print("Ok!")
-    print("The object of the game is for you to guess the word I'm thinking of before an innocent man is hanged!But I am not fully evil, so I will give to the number of letters and show you where they are in the word. And I will give you as many tries as you want to guess a letter or to solve the puzzle before I send this man to his Doom. Beware that you only get 6 wrong answers before I pull the lever")
-    print("Make sense?")
-    print("y/n")
-    tutorial = input()
-    while(tutorial) == "n":
-        print("I'm not sure how much clearer I can be. Try rereading it again. Does it make sense now?")
-        print("y/n")
-        tutorial = input()
-    if(tutorial) == "y":
-        print("     ")
-if(tutorial) == "y":
-    print("Ok! Let's get started")
-    print("Let me wake up the wizard and have him conjure the interface.")
-    print("*Muffled Boot Kick* Wake up! We have a game to Play!")
+
+#Databases
 #letters
-#not sure why this has to be here but it pitches a fit about the letters being used in the array/lists/things without it
-#   Apparently it's because I could have just made each element in the array an "a", "b", etc.
 a="a"
 b="b"
 c="c"
@@ -55,8 +28,7 @@ w="w"
 x="x"
 y="y"
 z="z"
-
-#word list
+#word list 
 #0 element will dictate how many "_"s for letters
 word =     [4,w,o,r,d,0,0,0,0,0,0,0]
 hangman =  [7,h,a,n,g,m,a,n,0,0,0,0]
@@ -68,34 +40,11 @@ food =     [4,f,o,o,d,0,0,0,0,0,0,0]
 #if the indexed value returns "0", abort checks and move on
 
 #print(word[0]) #this works to access the element I was looking for
-#Need the randomizer here to chose something from the arrays
 wordlist = [word,hangman,computer,party,paper,silver,food]
- 
-word_selection = random.choice (wordlist)
-print(word_selection)
-print(" I've chosen a word")
-#Random(wordlist)
-#Need to figure out how to call an array and a specific value within it
 
 wrongcount = 0
-
-def wrongcounter():
-    global wrongcount
-    wrongcount = wrongcount + 1
-    return (wrongcount)
-#wrongcounter() 
-#this should increment the wrongcount by 1 and update the global value
-
 bodycount = 0
 
-def bodycounter():
-    global bodycount
-    bodycount = bodycount + 1
-    return (bodycount)
-#bodycounter()
-#this should increment the bodycount by 1 and update the global value
-
-#this is the correct placement for the body currently with end of game stuff hashed out
 head = ("   ")
 arm = ("   ")
 torso = (" ")
@@ -103,13 +52,62 @@ arm2 = (" ")
 leg = ("  ")
 leg2 = ("  ")
 trapdoor = ("____")
-#head = ("   O")
-#arm = ("  /")
-#torso = ("|")
-#arm2 = ("\ ")
-#leg = (" /")
-#leg2 = (" \ ")
-#trapdoor = ("\   ")
+
+
+position1 = ("_")
+position2 = ("_")
+position3 = ("_")
+position4 = ("_")
+position5 = ("_")
+position6 = ("_")
+position7 = ("_")
+position8 = ("_")
+position9 = ("_")
+
+positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+
+#there are 12 elements in the arrays for the words, need to make it so that the Positions array changes positions with spaces are equivelent to a 0 before comparing them. need to also make the positions array have at least 11 elements so that they come back the same.
+
+print (positions)
+
+#Functions
+def openingsequence():
+    print("Let's play Hangman!"), print("y/n")
+    start = input()
+    while(start) == "n":
+        print("Okay, but come back when you want a challenge!")
+        start = input()
+    if(start) == "y":
+        print("Do you know how to play?")
+        print("y/n")
+    tutorial = input()
+    while(tutorial) == "n":
+        print("Ok!")
+        print("The object of the game is for you to guess the word I'm thinking of before an innocent man is hanged!But I am not fully evil, so I will give to the number of letters and show you where they are in the word. And I will give you as many tries as you want to guess a letter or to solve the puzzle before I send this man to his Doom. Beware that you only get 6 wrong answers before I pull the lever")
+        print("Make sense?")
+        print("y/n")
+        tutorial = input()
+        while(tutorial) == "n":
+            print("I'm not sure how much clearer I can be. Try rereading it again. Does it make sense now?")
+            print("y/n")
+            tutorial = input()
+        if(tutorial) == "y":
+            print("     ")
+    if(tutorial) == "y":
+        print("Ok! Let's get started")
+        print("Let me wake up the wizard and have him conjure the interface.")
+    print("*Muffled Boot Kick* Wake up! We have a game to Play!")
+
+def bodycounter():
+    global bodycount
+    bodycount = bodycount + 1
+    return (bodycount) #this should increment the bodycount by 1 and update the global value
+    
+def wrongcounter():
+    global wrongcount
+    bodycount()
+    wrongcount = wrongcount + 1
+    return (wrongcount) #this should increment the wrongcount by 1 and update the global value
 
 def coroner(): #takes bodycount and adjusts the body part variables appropriately
     global bodycount
@@ -165,20 +163,16 @@ def cremator(): #resets the body
     return(leg2)
     return(trapdoor)
 
-position1 = ("_")
-position2 = ("_")
-position3 = ("_")
-position4 = ("_")
-position5 = ("_")
-position6 = ("_")
-position7 = ("_")
-position8 = ("_")
-position9 = ("_")
-
-#build position updaters here
-#one to flip "_" to " " based on the 0 element of chosen word
 def num_of_letters():
-    if(element0) == 1: #this didn't hate me
+    global position2
+    global position3
+    global position4
+    global position5
+    global position6
+    global position7
+    global position8
+    global position9
+    if(word_selection [0]) == 1: #this didn't hate me
         position2 = (" ")
         position3 = (" ")
         position4 = (" ")
@@ -187,71 +181,188 @@ def num_of_letters():
         position7 = (" ")
         position8 = (" ")
         position9 = (" ")
+        return position2
+        return position3
+        return position4
+        return position5
+        return position6
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 2:
+        position3 = (" ")
+        position4 = (" ")
+        position5 = (" ")
+        position6 = (" ")
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+        return position3
+        return position4
+        return position5
+        return position6
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 3:
+        position4 = (" ")
+        position5 = (" ")
+        position6 = (" ")
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+        return position4
+        return position5
+        return position6
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 4:
+        position5 = (" ")
+        position6 = (" ")
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+        return position5
+        return position6
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 5:
+        position6 = (" ")
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+        return position6
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 6:
+        position7 = (" ")
+        position8 = (" ")
+        position9 = (" ")
+        return position7
+        return position8
+        return position9
+    if(word_selection [0]) == 7:
+        position8 = (" ")
+        position9 = (" ")
+        return position8
+        return position9
+    if(word_selection [0]) == 8:
+        position9 = (" ") 
+        return position9
+    if(word_selection [0]) == 9:
+        print(" ")
     
-#openinginterface = (startingword, 0):
-if(): #openinginterface) == 1:
-    position2 = (" ")
-    position3 = (" ")
-    position4 = (" ")
-    position5 = (" ")
-    position6 = (" ")
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 2:
-    position3 = (" ")
-    position4 = (" ")
-    position5 = (" ")
-    position6 = (" ")
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 3:
-    position4 = (" ")
-    position5 = (" ")
-    position6 = (" ")
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 4:
-    position5 = (" ")
-    position6 = (" ")
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 5:
-    position6 = (" ")
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 6:
-    position7 = (" ")
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 7:
-    position8 = (" ")
-    position9 = (" ")
-if():#openinginterface) == 8:
-    position9 = (" ")    
-if():#openinginterface) == 9:
-    print(" ")
-
+def underscoreupdater(): #flip "_" to the corectly guessed letter based on the specific element for a specific position
+    global position1
+    global position2
+    global position3
+    global position4
+    global position5
+    global position6
+    global position7
+    global position8
+    global position9
     
-#one to flip "_" to the corectly guessed letter based on the specific element for a specific position
 
-#Master print for interface
-#This has solved the interface replication
 def interface():
     print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
 
+def tryagain(): #Might need to take out word_selection 
+    global wrongcount
+    global bodycount
+    global word_selection
+    print("Try again?")
+    print("y/n")
+    tryagain = input ()
+    if(tryagain) == "y":
+        cremator()
+        wrongcount = 0
+        bodycount = 0
+        word_selection = random.choice (wordlist)
+        return wrongcount
+        return bodycount
+        return word_selection
+        #interface()
+    #tryagain needs to reset wrongcounter to 0 and revert the bodycounter to 0. Then pick a new word from the list, reset the position counter to the value in the 0element, print interface, and then ask for the first guess.
+    if(tryagain) == "n":
+        print("No worries! I'll be waiting for you.")
+
+def letterguess():
+    global positions #letterguess should do something with the input to make it so that each letter you guess either changes in the positions or adds to the bodycount
+    
+def compare_arrays():
+    for i in range(11):
+        if positions[i] != word_selection[i + 1]:
+            return False
+        else:
+            return True
+
+
+def playtime():
+    global bodycounter
+    global wrongcounter 
+    global coroner
+    global word_selection
+    global positions # need to build an array that is made out of the positions
+    #while wordselection != positions: #need to get the positions and word selection to line up and compare themselves. Or just use the information that gemini gave me on how to run the game
+    ''' possible solution from gemini
+    def compare_arrays(array1, array2):
+    """Compares elements 0-4 of array1 to elements 1-5 of array2.
+
+    Args:
+        array1: The first array.
+        array2: The second array.
+
+    Returns:
+        True if the corresponding elements are equal, False otherwise.
+    """
+
+    if len(array1) < 5 or len(array2) < 5: #dont think I need this one as long as I make sure the arrays are the same without counting the 0 element in the wordlists
+        return False
+
+    for i in range(11):
+        if positions[i] != word_selection[i + 1]:
+            return False
+        else:
+            return True
+
+# Example usage:
+array1 = [1, 2, 3, 4, 5]
+array2 = [0, 1, 2, 3, 4, 5]
+result = compare_arrays(array1, array2)
+print(result)  # Output: True'''
+       # letterguess=input
+       # if letterguess == "a":
+        #    letterguess()
+        # if not 
+
+
+
+
+
+
+
+
+
+
+
+
+#hangman game
+ 
+word_selection = random.choice (wordlist)
+print(word_selection)
+print(" I've chosen a word")
+num_of_letters()
 interface()
-#tester sequence \|/
-bodycounter(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),bodycounter(),interface(),coroner(),interface()
-
-
-
-
-
+print (wrongcount)
+print (bodycount)
+tryagain()
+print (wrongcount)
+print (bodycount)
+print(word_selection)
 
 
     
@@ -315,15 +426,7 @@ if(wrong) == "wr":
         print("*******Game over*******")
             
         
-print("Try again?")
-print("y/n")
-tryagain = input ()
-if(tryagain) == "y":
-    print(" I'll figure out how to do that later")
-    cremator()
-    #random(wordlist)
-interface()
-#tryagain needs to reset wrongcounter to 0 and revert the bodycounter to 0. Then pick a new word from the list, reset the position counter to the value in the 0element, print interface, and then ask for the first guess.
+
 
 
 
@@ -346,7 +449,6 @@ interface()
 
 #Pass a whole page for animations if this compiler would keep the coursor in veiw the whole time
 #print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*") #should be 26 lines
-
 
 
 

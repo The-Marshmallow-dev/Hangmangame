@@ -299,48 +299,12 @@ def underscoreupdater(): #flip "_" to the corectly guessed letter based on the s
         wrongcounter()
         coroner()
 
-
-
-
-    '''
-    if guess == word_selection[1]:
-        position1 = guess
-        return (position1)
-    elif guess == word_selection[2]:
-        position2 = guess
-        return position2
-    elif guess == word_selection[3]:
-        position3 = guess
-        return position3
-    elif guess == word_selection[4]:
-        position4 = guess
-        return position4
-    elif guess == word_selection[5]:
-        position5 = guess
-        return guess
-    elif guess == word_selection[6]:
-        position6 = guess
-        return guess
-    elif guess == word_selection[7]:
-        position7 = guess
-        return guess
-    elif guess == word_selection[8]:
-        position8 = guess
-        return guess
-    elif guess == word_selection[9]:
-        position9 = guess
-        return guess
-    else:
-        wrongcounter()
-'''
-
 def letterguess():
     global positions #letterguess should do something with the input to make it so that each letter you guess either changes in the positions or adds to the bodycount
     global compare_arrays
     openingsequence()
     while compare_arrays == False:
-        guess = input
-    
+        guess = input    
     
 def interface():
     global num_of_letters
@@ -409,7 +373,6 @@ def tryagain(): #Might need to take out word_selection
     if(tryagain) == "n":
         print("No worries! I'll be waiting for you.")
         
-
 def gameover():
     global wrongcount
     if(wrongcount) == 7:
@@ -492,40 +455,10 @@ def compare_arrays(): #this should be able to tell if you've solved the word
         status = True
         return status
 
-def playtime():
-    global bodycounter
-    global wrongcounter 
-    global coroner
-    global openingsequence
-    global word_selection
-    global positions 
-    openingsequence()
-    random.choice(wordlist)
-    interface()
-    while status != True:
-        #guess = input()
-        underscoreupdater()
-        compare_arrays()
-        interface()
-
 
 #hangman game
-#''' test sequence
-#word_selection = [5, 'p', 'a', 'r', 't', 'y', 0, 0, 0, 0, 0, 0]
-''' 
-position1 = ("p")
-position2 = ("a")
-position3 = ("r")
-position4 = ("t")
-position5 = ("y")
-position6 = ("_")
-positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0] #you need to define this after whenever you update the positions
-#'''
-#might need to add the definition to the end of a loop where it gets changed. Like every time the letters get added. then return the new definition
-# I do
-#'''
-
 openingsequence()
+print("*Magical grunt*")
 while tryagain != "n":
     interface()
     while status != True:
@@ -538,36 +471,3 @@ while tryagain != "n":
     tryagain() # want to get the loop so that it can be played over and over
     break
     
-#'''
-
-'''
-print (positions)
-print(word_selection)
-print(" I've chosen a word")
-interface()
-print (wrongcount)
-print (bodycount)
-print(status)
-guess = input()
-underscoreupdater()
-positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0] #you need to define this after whenever you update the positions
-interface()
-print(status)
-compare_arrays()
-print (status)
-interface()
-print(positions)
-gameover()
-tryagain()
-print (wrongcount)
-print (bodycount)
-print(word_selection)
-
-#Pass a whole page for animations if this compiler would keep the coursor in veiw the whole time
-#print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*") #should be 26 lines
-
-#'''
-
-
-
-#playtime()

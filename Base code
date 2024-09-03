@@ -37,13 +37,16 @@ party =    [5,p,a,r,t,y,0,0,0,0,0,0]
 paper =    [5,p,a,p,e,r,0,0,0,0,0,0]
 silver =   [6,s,i,l,v,e,r,0,0,0,0,0]
 food =     [4,f,o,o,d,0,0,0,0,0,0,0]
-#if the indexed value returns "0", abort checks and move on
 
 #print(word[0]) #this works to access the element I was looking for
 wordlist = [word,hangman,computer,party,paper,silver,food]
-
+word_selection = random.choice(wordlist)
 wrongcount = 0
 bodycount = 0
+status = 0
+guess = 0
+tryagain = 0 
+
 
 head = ("   ")
 arm = ("   ")
@@ -65,13 +68,10 @@ position8 = ("_")
 position9 = ("_")
 
 positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
-
 #there are 12 elements in the arrays for the words, need to make it so that the Positions array changes positions with spaces are equivelent to a 0 before comparing them. need to also make the positions array have at least 11 elements so that they come back the same.
 
-print (positions)
-
 #Functions
-def openingsequence():
+def openingsequence(): #opens the game when you first launch it
     print("Let's play Hangman!"), print("y/n")
     start = input()
     while(start) == "n":
@@ -105,9 +105,10 @@ def bodycounter():
     
 def wrongcounter():
     global wrongcount
-    bodycount()
+    global bodycounter
+    bodycounter()
     wrongcount = wrongcount + 1
-    return (wrongcount) #this should increment the wrongcount by 1 and update the global value
+    return (wrongcount) #this should increment the wrongcount by 1 and update the global value and update the body count
 
 def coroner(): #takes bodycount and adjusts the body part variables appropriately
     global bodycount
@@ -163,7 +164,7 @@ def cremator(): #resets the body
     return(leg2)
     return(trapdoor)
 
-def num_of_letters():
+def num_of_letters():#adjusts the underscores to fit the selected word
     global position2
     global position3
     global position4
@@ -265,15 +266,113 @@ def underscoreupdater(): #flip "_" to the corectly guessed letter based on the s
     global position7
     global position8
     global position9
-    
+    #global guess
+    global wrongcounter
+    #needs to take the guess and compare it to the word. change the position when the guess matches the word. needs to look throught the whole word even after finding a match and replacing that.
+    #y
+    guess = input()
+    if guess in word_selection:
+        indices = []
+        for i in range(len(word_selection)):
+            if word_selection[i] == guess:
+                indices.append(i)
+        #if indices includes a 1, position1 = guess
+        if 1 in indices:
+            position1 = guess
+        if 2 in indices:
+            position2 = guess
+        if 3 in indices:
+            position3 = guess
+        if 4 in indices:
+            position4 = guess
+        if 5 in indices:
+            position5 = guess
+        if 6 in indices:
+            position6 = guess
+        if 7 in indices:
+            position7 = guess
+        if 8 in indices:
+            position8 = guess
+        if 9 in indices:
+            position9 = guess
+    else:
+        wrongcounter()
+        coroner()
 
+
+
+
+    '''
+    if guess == word_selection[1]:
+        position1 = guess
+        return (position1)
+    elif guess == word_selection[2]:
+        position2 = guess
+        return position2
+    elif guess == word_selection[3]:
+        position3 = guess
+        return position3
+    elif guess == word_selection[4]:
+        position4 = guess
+        return position4
+    elif guess == word_selection[5]:
+        position5 = guess
+        return guess
+    elif guess == word_selection[6]:
+        position6 = guess
+        return guess
+    elif guess == word_selection[7]:
+        position7 = guess
+        return guess
+    elif guess == word_selection[8]:
+        position8 = guess
+        return guess
+    elif guess == word_selection[9]:
+        position9 = guess
+        return guess
+    else:
+        wrongcounter()
+'''
+
+def letterguess():
+    global positions #letterguess should do something with the input to make it so that each letter you guess either changes in the positions or adds to the bodycount
+    global compare_arrays
+    openingsequence()
+    while compare_arrays == False:
+        guess = input
+    
+    
 def interface():
-    print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
+    global num_of_letters
+    num_of_letters()
+    print("             _________")
+    print("             |         |")
+    print("             |      "+head)
+    print("             |      "+arm+torso+arm2)
+    print("             |       "+leg+leg2)
+    print("             |")
+    print("     _________________"+trapdoor+"_________")
+    print(" ")
+    print("                  ")
+    print(str(position1) + " " + str(position2) + " " + str(position3) + " " + str(position4) + " " + str(position5) + " " + str(position6) + " " + str(position7) + " " + str(position8) + " " + str(position9)) #needs to be strings because something in the compare array function is converting things to int
+   # print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9)
+    print(" ")
 
 def tryagain(): #Might need to take out word_selection 
     global wrongcount
     global bodycount
     global word_selection
+    global status
+    global cremator
+    global position1
+    global position2
+    global position3
+    global position4
+    global position5
+    global position6
+    global position7
+    global position8
+    global position9
     print("Try again?")
     print("y/n")
     tryagain = input ()
@@ -281,183 +380,194 @@ def tryagain(): #Might need to take out word_selection
         cremator()
         wrongcount = 0
         bodycount = 0
+        status = 0
         word_selection = random.choice (wordlist)
+        position1 = ("_")
+        position2 = ("_")
+        position3 = ("_")
+        position4 = ("_")
+        position5 = ("_")
+        position6 = ("_")
+        position7 = ("_")
+        position8 = ("_")
+        position9 = ("_")
+        return position1
+        return position2
+        return position3
+        return position4
+        return position5
+        return position6
+        return position7
+        return position8
+        return position9
         return wrongcount
         return bodycount
         return word_selection
+        return status
         #interface()
     #tryagain needs to reset wrongcounter to 0 and revert the bodycounter to 0. Then pick a new word from the list, reset the position counter to the value in the 0element, print interface, and then ask for the first guess.
     if(tryagain) == "n":
         print("No worries! I'll be waiting for you.")
+        
 
-def letterguess():
-    global positions #letterguess should do something with the input to make it so that each letter you guess either changes in the positions or adds to the bodycount
-    
-def compare_arrays():
-    for i in range(11):
-        if positions[i] != word_selection[i + 1]:
-            return False
-        else:
-            return True
-
+def gameover():
+    global wrongcount
+    if(wrongcount) == 7:
+#        trapdoor = ("\   ")
+#        interface()
+        wrongcount = wrongcount + 1
+        print("*******Game over*******")
+        tryagain()
+        interface()
+        return wrongcount
+            
+def compare_arrays(): #this should be able to tell if you've solved the word
+    global word_selection
+    global positions
+    '''
+    global position2 #don't currently need these since there's no words under 3 letters
+    global position3
+'''
+    global position4
+    global position5
+    global position6
+    global position7
+    global position8
+    global position9
+    #'''
+    global status
+    if word_selection[0] == 8:
+        position9 = 0
+        positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+        for i in range(11):
+            if positions[i] != word_selection[i + 1]:
+                status = False
+                return status
+        status = True
+        return status
+    if word_selection[0] == 7:
+        position9 = 0
+        position8 = 0
+        positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+        for i in range(11):
+            if positions[i] != word_selection[i + 1]:
+                status = False
+                return status
+        status = True
+        return status
+    if word_selection[0] == 6:
+        position9 = 0
+        position8 = 0
+        position7 = 0
+        positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+        for i in range(11):
+            if positions[i] != word_selection[i + 1]:
+                status = False
+                return status
+        status = True
+        return status
+    if word_selection[0] == 5:
+        position9 = 0
+        position8 = 0
+        position7 = 0
+        position6 = 0
+        positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+        for i in range(11):
+            if positions[i] != word_selection[i + 1]:
+                status = False
+                return status
+        status = True
+        return status
+    if word_selection[0] == 4:
+        position9 = 0
+        position8 = 0
+        position7 = 0
+        position6 = 0
+        position5 = 0
+        positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0]
+        for i in range(11):
+            if positions[i] != word_selection[i + 1]:
+                status = False
+                return status
+        status = True
+        return status
 
 def playtime():
     global bodycounter
     global wrongcounter 
     global coroner
+    global openingsequence
     global word_selection
-    global positions # need to build an array that is made out of the positions
-    #while wordselection != positions: #need to get the positions and word selection to line up and compare themselves. Or just use the information that gemini gave me on how to run the game
-    ''' possible solution from gemini
-    def compare_arrays(array1, array2):
-    """Compares elements 0-4 of array1 to elements 1-5 of array2.
-
-    Args:
-        array1: The first array.
-        array2: The second array.
-
-    Returns:
-        True if the corresponding elements are equal, False otherwise.
-    """
-
-    if len(array1) < 5 or len(array2) < 5: #dont think I need this one as long as I make sure the arrays are the same without counting the 0 element in the wordlists
-        return False
-
-    for i in range(11):
-        if positions[i] != word_selection[i + 1]:
-            return False
-        else:
-            return True
-
-# Example usage:
-array1 = [1, 2, 3, 4, 5]
-array2 = [0, 1, 2, 3, 4, 5]
-result = compare_arrays(array1, array2)
-print(result)  # Output: True'''
-       # letterguess=input
-       # if letterguess == "a":
-        #    letterguess()
-        # if not 
-
-
-
-
-
-
-
-
-
-
+    global positions 
+    openingsequence()
+    random.choice(wordlist)
+    interface()
+    while status != True:
+        #guess = input()
+        underscoreupdater()
+        compare_arrays()
+        interface()
 
 
 #hangman game
- 
-word_selection = random.choice (wordlist)
+#''' test sequence
+#word_selection = [5, 'p', 'a', 'r', 't', 'y', 0, 0, 0, 0, 0, 0]
+''' 
+position1 = ("p")
+position2 = ("a")
+position3 = ("r")
+position4 = ("t")
+position5 = ("y")
+position6 = ("_")
+positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0] #you need to define this after whenever you update the positions
+#'''
+#might need to add the definition to the end of a loop where it gets changed. Like every time the letters get added. then return the new definition
+# I do
+#'''
+
+openingsequence()
+while tryagain != "n":
+    interface()
+    while status != True:
+        #guess = input()
+        underscoreupdater()
+        compare_arrays()
+        interface()
+        gameover()
+        
+    tryagain() # want to get the loop so that it can be played over and over
+    break
+    
+#'''
+
+'''
+print (positions)
 print(word_selection)
 print(" I've chosen a word")
-num_of_letters()
 interface()
 print (wrongcount)
 print (bodycount)
+print(status)
+guess = input()
+underscoreupdater()
+positions = [position1,position2,position3,position4,position5,position6,position7,position8,position9,0,0] #you need to define this after whenever you update the positions
+interface()
+print(status)
+compare_arrays()
+print (status)
+interface()
+print(positions)
+gameover()
 tryagain()
 print (wrongcount)
 print (bodycount)
 print(word_selection)
 
-
-    
-#print("             _________"), print("             |         |"), print("             |      "+ str(head)), print("             |      "+arm+torso+arm2), print("             |       "+leg+leg2), print("             |"), print("     _________________"+trapdoor+"_________"), print(" "), print("                  "), print(position1+" "+position2+" "+position3+" "+position4+" "+position5+" "+position6+" "+position7+" "+position8+" "+position9), print(" ")
-
-#test input
-wrong = 20 #input()
-#need a solve input
-
-#All body count advancement is here
-#They all end with a wrongcounter going up. Might need to start them with the wrongcounter, I'm not sure. I just feel like this is going to be a source of frustration later
-#I need to rebuild this so that if returns a counter from the wrong guess. And then build the counter to update the head variable in global scope. basically split this into 2 different funtions that just returns a single thing each
-if(wrong) == "wr":
-    wrongcount = wrongcount + 1
-    if(wrongcount) == 1:
-        head = ("   O")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 2:
-        torso = ("|")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 3:
-        arm = ("  /")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 4:
-        arm2 = ("\ ")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 5:
-        leg = (" /")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 6:
-        leg2 = (" \ ")
-        interface()
-        wrong = input()
-        print(" ")
-        if(wrong) == "wr":
-            wrongcount = wrongcount + 1
-    if(wrongcount) == 7:
-        trapdoor = ("\   ")
-        interface()
-        wrongcount = wrongcount + 1
-        print("*******Game over*******")
-            
-        
-
-
-
-
-
-#def display_info(first_name, last_name):
-    #print('First Name:', first_name)
-    #print('Last Name:', last_name)
-    
-#display_info(last_name = 'Cartman', first_name = 'Eric')
-# so this worked. Let's see if it becomes global or just back to when it was defined. On the levels of scope
-
-
-
-
-
-
-
-
-        
-
 #Pass a whole page for animations if this compiler would keep the coursor in veiw the whole time
 #print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*"), print("*") #should be 26 lines
 
+#'''
 
 
 
-
-
-
-
-
-
-
-
+#playtime()
